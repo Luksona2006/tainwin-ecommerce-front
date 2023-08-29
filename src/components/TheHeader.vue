@@ -7,7 +7,7 @@
                 <the-link route-name="home">Favourites</the-link>
                 <the-link route-name="home">Card</the-link>
                 <the-link route-name="home">Account</the-link>
-                <the-button>Login</the-button>
+                <router-link :to="{ name: 'login' }"><the-button>Login</the-button></router-link>
             </ul>
         </nav>
     </header>

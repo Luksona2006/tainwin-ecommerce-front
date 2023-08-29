@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../pages/Home.vue'
+import TheHome from '@/pages/TheHome.vue'
+import TheLogin from '@/pages/TheLogin.vue'
+import TheSignup from '@/pages/TheSignup.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -7,7 +9,20 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: Home,
+            component: TheHome
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: TheLogin,
+            meta: {
+                guest: true
+            }
+        },
+        {
+            path: '/signup',
+            name: 'signup',
+            component: TheSignup,
             meta: {
                 guest: true
             }

@@ -1,11 +1,12 @@
-import './index.css'
+import '@/index.css'
+import '@/config/vee-validate/messages.js'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
-import App from './App.vue'
-import router from './router'
+import App from '@/App.vue'
+import router from '@/router'
 
 const app = createApp(App)
 const pinia = createPinia()
