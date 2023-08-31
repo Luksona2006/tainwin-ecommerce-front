@@ -1,23 +1,18 @@
 <template>
     <div
-        class="w-full absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 px-12 flex justify-between items-start"
+        class="w-full static xl:absolute xl:top-1/3 xl:left-1/2 xl:transform xl:-translate-x-1/2 xl:-translate-y-1/3 xl:px-20 xl:py-0 py-12 px-8 flex justify-between items-center xl:flex-row flex-col xl:gap-0 gap-10"
     >
-        <div class="flex flex-col gap-1 items-start">
-            <h1 class="text-8xl font-black">Tainwin</h1>
-            <p class="text-3xl font-medium">
-                Place where you are <span class="font-semibold">COMFORTABLE!</span> <br />
-                for <span class="font-semibold">THE BEST MEMORIES</span> you need <br /><span
-                    class="font-semibold"
-                    >APPROPRIATE THINGS</span
-                >
-            </p>
-        </div>
-        <Form @submit.prevent class="max-w-sm w-full flex flex-col gap-5 items-start mr-60">
+        <text-template />
+        <Form
+            @submit.prevent
+            class="sm:max-w-sm max-w-none w-full gap-4 items-start xl:mr-32 mr-0"
+            v-slot="{ values, errors }"
+        >
             <the-input
                 input-name="email"
                 title="Email"
-                placeholder="Enter your email address"
-                validation-rules="required|email"
+                placeholder="Email or phone number"
+                validation-rules="required"
             />
             <the-input
                 input-name="password"
@@ -30,16 +25,26 @@
                     >Forgot Password?</router-link
                 >
                 <router-link :to="{ name: 'signup' }" class="opacity-50 font-medium"
-                    >Don't have account yet</router-link
+                    >Register account</router-link
                 >
             </div>
-            <black-button class="w-full mt-4">Login</black-button>
+            <black-button class="w-full mt-4" @click="loginUser(values, errors)"
+                >Login</black-button
+            >
         </Form>
     </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { Form } from 'vee-validate'
 import TheInput from '@/components/form/TheInput.vue'
 import BlackButton from '@/components/buttons/BlackButton.vue'
+import TextTemplate from '@/components/TextTemplate.vue'
+
+const phone = ref(null)
+
+function loginUser(values, errors) {
+    console.log(values, errors)
+}
 </script>

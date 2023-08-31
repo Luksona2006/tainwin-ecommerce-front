@@ -18,6 +18,14 @@ defineRule('max', (value, [max, input]) => {
     return true
 })
 
+defineRule('phone', (value) => {
+    if (!/^(\+\d{1,3}\S?)?\d{15}$/.test(value)) {
+        return `Invalid phone number`
+    }
+
+    return true
+})
+
 defineRule('required', required)
 defineRule('email', email)
 defineRule('confirmed', confirmed)
