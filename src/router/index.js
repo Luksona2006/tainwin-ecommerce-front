@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import TheHome from '@/pages/TheHome.vue'
-import TheLogin from '@/pages/TheLogin.vue'
-import TheSignup from '@/pages/TheSignup.vue'
+import TheLogin from '@/pages/auth/TheLogin.vue'
+import TheSignup from '@/pages/auth/TheSignup.vue'
+import TheConfirmation from '@/pages/auth/TheConfirmation.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -23,6 +24,22 @@ const router = createRouter({
             path: '/signup',
             name: 'signup',
             component: TheSignup,
+            meta: {
+                guest: true
+            }
+        },
+        {
+            path: '/email-confirmation/:token',
+            name: 'email-confirmation',
+            component: TheConfirmation,
+            meta: {
+                guest: true
+            }
+        },
+        {
+            path: '/phone-confirmation/:token',
+            name: 'phone-confirmation',
+            component: TheConfirmation,
             meta: {
                 guest: true
             }

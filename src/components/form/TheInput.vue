@@ -7,6 +7,7 @@
             :name="inputName"
             :type="inputType"
             :placeholder="placeholder"
+            :maxlength="inputMaxLength"
         />
         <div class="flex">
             <ErrorMessage :name="inputName" class="text-sm text-[#DC3545] font-normal" />
@@ -39,6 +40,11 @@ const props = defineProps({
     validationRules: {
         type: String,
         required: false
+    },
+    inputMaxLength: {
+        type: String || Number,
+        required: false,
+        default: 'none'
     }
 })
 </script>

@@ -9,7 +9,7 @@
             v-slot="{ values, errors }"
         >
             <the-input
-                input-name="email"
+                input-name="login"
                 title="Email"
                 placeholder="Email or phone number"
                 validation-rules="required"
@@ -36,15 +36,23 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { Form } from 'vee-validate'
+import { useUserStore } from '@/store/user'
+import axiosInstance from '@/config/axios'
+
 import TheInput from '@/components/form/TheInput.vue'
 import BlackButton from '@/components/buttons/BlackButton.vue'
 import TextTemplate from '@/components/TextTemplate.vue'
 
-const phone = ref(null)
-
 function loginUser(values, errors) {
-    console.log(values, errors)
+    if (!errors[0]) {
+        axiosInstance.post('/signup', values).then((res) => {
+            if (res.status === 200) {
+                useUserStore().setUserDetails(res)
+                useRouter().push({ name: 'home' })
+            }
+        })
+    }
 }
 </script>

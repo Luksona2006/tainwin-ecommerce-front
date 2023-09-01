@@ -6,6 +6,7 @@
         <Form
             @submit.prevent
             class="sm:max-w-2xl max-w-none w-full sm:grid sm:grid-cols-2 gap-4 items-start 2xl:mr-32 mr-0"
+            v-slot="{ values, errors }"
         >
             <div class="w-full flex flex-col gap-2">
                 <the-input
@@ -37,7 +38,7 @@
                 <div class="w-full flex flex-col gap-[1px] items-start">
                     <label class="text-xl font-semibold" for="phone">Phone Number</label>
                     <vue-tel-input
-                        v-model="phone"
+                        v-model="phoneNumber"
                         @validate="validatePhoneNumber"
                         v-bind="phoneBindings"
                         @country-changed="saveDialCode"
@@ -45,7 +46,7 @@
                     <span
                         class="text-sm text-[#DC3545] font-normal opacity-0"
                         :class="{ 'opacity-100': isPhoneNumberValid === false }"
-                        >Field shouldn't be empty</span
+                        >Invalid phone number</span
                     >
                 </div>
                 <the-input
@@ -60,14 +61,18 @@
                 >I Already have account</router-link
             >
 
-            <black-button class="w-full mt-4 col-span-2">Signup</black-button>
+            <black-button class="w-full mt-2 col-span-2" @click="registerUser(values, errors)"
+                >Signup</black-button
+            >
         </Form>
     </div>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
+import axiosInstance from '@/config/axios'
 
 import TheInput from '@/components/form/TheInput.vue'
 import BlackButton from '@/components/buttons/BlackButton.vue'
@@ -96,6 +101,21 @@ function validatePhoneNumber(object) {
 
 function saveDialCode(object) {
     dialCode.value = object.dialCode
+}
+
+function registerUser(values, errors) {
+    if (!errors[0]) {
+        const data = {
+            ...values,
+            phone: phoneNumber.value
+        }
+
+        axiosInstance.post('/signup', data).then((res) => {
+            if (res.status === 200) {
+                useRouter().push({ name: 'email-confirmation', params: { token: res.data.token } })
+            }
+        })
+    }
 }
 </script>
 
